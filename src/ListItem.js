@@ -1,24 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import SharedContext from "./SharedContext";
 
-class ListItem extends React.Component {
-  toggleActive = () => {
-    this.props.onSelect(this.props.title);
+function ListItem({ onSelect, title, active }) {
+  const sharedData = useContext(SharedContext);
+
+  const toggleActive = () => {
+    onSelect(title);
   };
 
-  render() {
-    return (
-      <li
-        className={`px-6 py-4 rounded-lg shadow hover:cursor-pointer transition ${
-          this.props.active
-            ? "bg-slate-800 text-white"
-            : "bg-white hover:bg-slate-100"
-        }`}
-        onClick={this.toggleActive}
-      >
-        {this.props.title}
-      </li>
-    );
-  }
+  return (
+    <li
+      className={`px-6 py-4 rounded-lg shadow hover:cursor-pointer transition ${
+        active ? "bg-slate-800 text-white" : "bg-white hover:bg-slate-100"
+      }`}
+      onClick={toggleActive}
+    >
+      {title} ({sharedData.theme})
+    </li>
+  );
 }
 
 export default ListItem;
